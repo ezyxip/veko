@@ -1,5 +1,6 @@
 package com.ezyxip.veko.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,7 +35,8 @@ fun NoteCard(
                 elevation = 10.dp,
                 clip = true,
                 spotColor = Color(0xFFCACACA)
-            ),
+            )
+            .clickable {  },
         colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = RoundedCornerShape(5.dp)
     ) {

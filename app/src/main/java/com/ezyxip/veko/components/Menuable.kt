@@ -84,7 +84,7 @@ private fun MenuableDrawerSheet(
 
 @Composable
 @Preview
-fun MenuablePreview(){
+private fun MenuablePreview(){
     Menuable (title = "Hello world!") {
         Text("World")
     }
