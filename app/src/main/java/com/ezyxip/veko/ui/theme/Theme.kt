@@ -10,6 +10,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -37,6 +38,13 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+private val AppLightTheme = lightColorScheme(
+    primary = Color.White,
+    onPrimary = Color.Black,
+    primaryContainer = Color.White,
+    onPrimaryContainer = Color.Black
+)
+
 @Composable
 fun VekoTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -51,7 +59,7 @@ fun VekoTheme(
         }
 
         darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        else -> AppLightTheme
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
