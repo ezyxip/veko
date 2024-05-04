@@ -11,6 +11,7 @@ import com.ezyxip.veko.screens.MainScreen
 
 @Composable
 fun App(){
+    configureApp()
     val navigator = rememberNavController()
     val graph = getGraph(navigator)
     NavHost(navController = navigator, graph = graph)
