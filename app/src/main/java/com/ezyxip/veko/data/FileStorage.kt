@@ -27,6 +27,10 @@ class FileStorage (private val appDir: File = FileConfiguration.appDir) {
     fun exists(name: String): Boolean{
         return File(directory, name).exists()
     }
+
+    fun exists(name: String, dirName: String): Boolean{
+        return File(directory, "$dirName/$name").exists()
+    }
     fun addFile(name: String, dirName: String = ""): File{
         val file = if(dirName.isEmpty())
             File(directory, name)

@@ -63,4 +63,65 @@ class FileStorageTest {
         assertEquals(true, File("./testdir/events/test.event").isFile)
     }
 
+    @Test
+    fun fileExistsWithCurrentDir(){
+        setup()
+        val storage = FileStorage("testdir")
+        storage.currentDir = "notes"
+
+        assertEquals(true, storage.exists("note1.note"))
+        assertEquals(true, storage.exists("note2.note"))
+        assertEquals(true, storage.exists("note3.note"))
+
+        assertEquals(false, storage.exists("note4"))
+        assertEquals(false, storage.exists("notfsde2"))
+        assertEquals(false, storage.exists("fsd"))
+    }
+
+    @Test
+    fun fileExists(){
+        setup()
+        val storage = FileStorage("testdir")
+
+        assertEquals(true, storage.exists("note1.note", "notes"))
+        assertEquals(true, storage.exists("note2.note", "notes"))
+        assertEquals(true, storage.exists("note3.note", "notes"))
+
+        assertEquals(false, storage.exists("note4", "notes"))
+        assertEquals(false, storage.exists("notfsde2", "notes"))
+        assertEquals(false, storage.exists("fsd", "notes"))
+    }
+
+    @Test
+    fun getFile(){
+        setup()
+        val storage = FileStorage("testdir")
+        val note = storage.getFile("note1.note", "notes")
+
+        assertEquals(true, note.exists())
+        assertEquals(true, note.isFile)
+
+        storage.currentDir = "notes"
+        val note2 = storage.getFile("note1.note", "notes")
+
+        assertEquals(true, note2.exists())
+        assertEquals(true, note2.isFile)
+
+        assertThrows(Exception::class.java){storage.getFile("fsd", "fsd")}
+    }
+
+    @Test
+    fun getFiles(){
+        setup()
+        val storage = FileStorage("testdir")
+        val expected = listOf(
+            File("./testdir/notes/note1.note"),
+            File("./testdir/notes/note2.note"),
+            File("./testdir/notes/note3.note")
+        )
+
+        val found = storage.getFiles("notes")
+
+        assertEquals(expected.map { e -> e.canonicalPath }, found.map { e -> e.canonicalPath })
+    }
 }
