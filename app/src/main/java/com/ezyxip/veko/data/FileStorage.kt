@@ -21,8 +21,8 @@ class FileStorage (private val appDir: File = FileConfiguration.appDir) {
     private val directory
         get() = File(appDir, currentDir)
     fun addDir(name: String){
-        val res = File(directory, name).mkdir()
-        if(!res) throw Exception("Failed to create directory")
+        File(directory, name).mkdir()
+        if(!File(directory, name).exists()) throw Exception("Failed to create directory")
     }
     fun exists(name: String): Boolean{
         return File(directory, name).exists()
