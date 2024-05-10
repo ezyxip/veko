@@ -4,9 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ezyxip.veko.components.EventCard
 import com.ezyxip.veko.components.MainTitle
 import com.ezyxip.veko.components.Menuable
@@ -16,8 +19,11 @@ import com.ezyxip.veko.components.NoteCard
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
+    vm: NoteViewModel = viewModel(),
     navigator: (String) -> Unit
 ){
+    val notes by vm.noteList.collectAsState(initial = emptyList())
+
     Menuable (
         modifier = modifier,
         title = "Главная",
@@ -44,8 +50,8 @@ fun MainScreen(
                 modifier = modifier.padding(10.dp),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ){
-                NoteCard(title = "Список покупок", body = "Lorem ipsum dolor sit amet, consectetur")
-                NoteCard(title = "Вдохновение", body = "Lorem ipsum dolor sit amet, consectetur")
+                notes.take(3)
+                    .forEach { e -> NoteCard(title = e.data.theme, body = e.data.description) }
             }
         }
     }
