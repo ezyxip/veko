@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.createGraph
 import com.ezyxip.veko.screens.MainScreen
+import com.ezyxip.veko.screens.NoteListScreen
 
 @Composable
 fun App(){
@@ -19,7 +20,13 @@ fun App(){
 
 @Composable
 fun getGraph(navigator: NavHostController): NavGraph {
+
+    val nav = { path: String ->
+        navigator.navigate(path)
+    }
+
     return navigator.createGraph("/main"){
-        composable("/main"){ MainScreen() }
+        composable("/main"){ MainScreen(navigator = nav) }
+        composable("/notes"){ NoteListScreen(navigator = nav) }
     }
 }

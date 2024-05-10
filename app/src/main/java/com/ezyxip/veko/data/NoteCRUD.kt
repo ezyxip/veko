@@ -50,9 +50,22 @@ class NoteCRUD(
     override fun all(where: (Identifiable<Note>) -> Boolean): List<Identifiable<Note>> {
         return storage.getFiles("notes")
             .map { e -> Identifiable(e.name.replace(".note", "").toInt(), e )}
+            .sortedBy { e -> e.data.lastModified() }
             .map { e -> Identifiable(e.id, e.data.readText()) }
             .map {e -> Identifiable(e.id, Json.decodeFromString<Note>(e.data))}
             .filter(where)
+            .reversed()
+    }
+
+    fun all(count: Int, where: (Identifiable<Note>) -> Boolean): List<Identifiable<Note>> {
+        return storage.getFiles("notes")
+            .map { e -> Identifiable(e.name.replace(".note", "").toInt(), e )}
+            .sortedBy { e -> e.data.lastModified() }
+            .take(count)
+            .map { e -> Identifiable(e.id, e.data.readText()) }
+            .map {e -> Identifiable(e.id, Json.decodeFromString<Note>(e.data))}
+            .filter(where)
+            .reversed()
     }
 
 }

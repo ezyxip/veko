@@ -30,12 +30,13 @@ fun Menuable(
     modifier: Modifier = Modifier,
     title: String = "",
     actions: @Composable RowScope.() -> Unit = {},
+    navigator: (String) -> Unit = {},
     content: @Composable () -> Unit
 ){
     val drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     ModalNavigationDrawer(
-        drawerContent =  { MenuableDrawerSheet()},
+        drawerContent =  { MenuableDrawerSheet(navigator = navigator)},
         drawerState = drawerState,
         gesturesEnabled = true,
     ){
@@ -73,12 +74,14 @@ fun Menuable(
 @Composable
 private fun MenuableDrawerSheet(
     modifier: Modifier = Modifier,
+    navigator: (String)-> Unit
 ){
     ModalDrawerSheet (
         modifier = modifier
     ) {
+        NavigationDrawerItem(label = { Text("Главная", fontSize = 20.sp) }, selected = false, onClick = { navigator("/main") })
         NavigationDrawerItem(label = { Text("События", fontSize = 20.sp) }, selected = false, onClick = { /*TODO*/ })
-        NavigationDrawerItem(label = { Text("Заметки", fontSize = 20.sp) }, selected = false, onClick = { /*TODO*/ })
+        NavigationDrawerItem(label = { Text("Заметки", fontSize = 20.sp) }, selected = false, onClick = { navigator("/notes") })
         NavigationDrawerItem(label = { Text("Настройки", fontSize = 20.sp) }, selected = false, onClick = { /*TODO*/ })
         NavigationDrawerItem(label = { Text("О приложении", fontSize = 20.sp) }, selected = false, onClick = { /*TODO*/ })
     }

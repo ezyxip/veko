@@ -19,23 +19,31 @@ class NoteViewModel: ViewModel() {
         viewModelScope.launch {
             _noteList.value = noteRepo.all()
         }
+    }
 
-        fun addNote(note: Note) {
-            viewModelScope.launch {
-                noteRepo.add(note)
-            }
+    fun addNote(note: Note) {
+        viewModelScope.launch {
+            val id = noteRepo.add(note)
+            _noteList.value = listOf(Identifiable(id, note)) + _noteList.value
         }
+    }
 
-        fun updateNote(note: Identifiable<Note>) {
-            viewModelScope.launch {
-                noteRepo.update(note)
-            }
+    fun updateNote(note: Identifiable<Note>) {
+        viewModelScope.launch {
+            noteRepo.update(note)
+            _noteList.value = _noteList.value
+                .map { e -> if (e.id == note.id) note else e }
         }
+    }
 
-        fun deleteNote(id: Int) {
-            viewModelScope.launch {
-                noteRepo.delete(id)
-            }
+    fun deleteNote(id: Int) {
+        viewModelScope.launch {
+            noteRepo.delete(id)
+            _noteList.value = _noteList.value.filter { e -> e.id == id }
         }
+    }
+
+    fun deleteAllNotes(){
+        _noteList.value = listOf()
     }
 }

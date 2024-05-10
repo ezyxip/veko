@@ -14,10 +14,14 @@ import com.ezyxip.veko.components.MiniTitle
 import com.ezyxip.veko.components.NoteCard
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier){
+fun MainScreen(
+    modifier: Modifier = Modifier,
+    navigator: (String) -> Unit
+){
     Menuable (
         modifier = modifier,
-        title = "Главная"
+        title = "Главная",
+        navigator = navigator
     ){
         Column (
             modifier = modifier
