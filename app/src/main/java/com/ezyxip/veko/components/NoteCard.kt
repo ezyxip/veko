@@ -25,7 +25,9 @@ import com.ezyxip.veko.interFamily
 fun NoteCard(
     modifier: Modifier = Modifier,
     title: String,
-    body: String
+    body: String,
+    id: Int = 1,
+    navigator: (String) -> Unit = {}
 ){
     Card (
         modifier = modifier
@@ -36,7 +38,7 @@ fun NoteCard(
                 clip = true,
                 spotColor = Color(0xFFCACACA)
             )
-            .clickable {  },
+            .clickable { navigator("/note_edit/$id") },
         colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = RoundedCornerShape(5.dp)
     ) {

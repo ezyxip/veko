@@ -39,7 +39,7 @@ class NoteViewModel: ViewModel() {
     fun deleteNote(id: Int) {
         viewModelScope.launch {
             noteRepo.delete(id)
-            _noteList.value = _noteList.value.filter { e -> e.id == id }
+            _noteList.value = _noteList.value.filter { e -> e.id != id }
         }
     }
 

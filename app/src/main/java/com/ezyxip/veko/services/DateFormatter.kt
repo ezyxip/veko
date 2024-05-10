@@ -4,5 +4,4 @@ import java.util.Date
 
 fun date(date: Date){
     val now = Date()
-    println()
 }

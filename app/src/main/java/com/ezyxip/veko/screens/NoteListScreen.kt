@@ -52,7 +52,12 @@ fun NoteListScreen(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ){
             items(noteList){
-                NoteCard(title = it.data.theme, body = it.data.description)
+                NoteCard(
+                    title = it.data.theme,
+                    body = it.data.description,
+                    navigator = navigator,
+                    id = it.id
+                )
             }
         }
     }

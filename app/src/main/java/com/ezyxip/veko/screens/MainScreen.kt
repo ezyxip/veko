@@ -51,7 +51,12 @@ fun MainScreen(
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ){
                 notes.take(3)
-                    .forEach { e -> NoteCard(title = e.data.theme, body = e.data.description) }
+                    .forEach { e -> NoteCard(
+                        title = e.data.theme,
+                        body = e.data.description,
+                        navigator = navigator,
+                        id = e.id
+                    ) }
             }
         }
     }
