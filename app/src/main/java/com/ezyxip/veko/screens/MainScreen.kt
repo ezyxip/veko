@@ -45,19 +45,22 @@ fun MainScreen(
                 EventCard(time = "12-30", title = "Тренировка")
                 EventCard(time = "16-25", title = "Встреча")
             }
-            MainTitle(text = "Последние заметки")
-            Column (
-                modifier = modifier.padding(10.dp),
-                verticalArrangement = Arrangement.spacedBy(20.dp)
-            ){
-                notes.take(3)
-                    .forEach { e -> NoteCard(
-                        title = e.data.theme,
-                        body = e.data.description,
-                        navigator = navigator,
-                        id = e.id
-                    ) }
+            if(notes.isNotEmpty()){
+                MainTitle(text = "Последние заметки")
+                Column (
+                    modifier = modifier.padding(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
+                ){
+                    notes.take(3)
+                        .forEach { e -> NoteCard(
+                            title = e.data.theme,
+                            body = e.data.description,
+                            navigator = navigator,
+                            id = e.id
+                        ) }
+                }
             }
         }
+
     }
 }

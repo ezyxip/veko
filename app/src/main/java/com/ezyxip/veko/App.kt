@@ -26,7 +26,7 @@ fun getGraph(navigator: NavHostController): NavGraph {
 
     val nav =  { path: String ->
         if (path == "[back]") {
-            navigator.popBackStack()
+            navigator.navigateUp()
             Unit
         } else {
             navigator.navigate(path)

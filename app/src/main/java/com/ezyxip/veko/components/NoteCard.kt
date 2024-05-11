@@ -32,6 +32,7 @@ fun NoteCard(
     Card (
         modifier = modifier
             .fillMaxWidth()
+            .padding(2.dp)
             .shadow(
                 shape = RoundedCornerShape(5.dp),
                 elevation = 10.dp,
