@@ -14,6 +14,7 @@ class NoteViewModel: ViewModel() {
     private val _noteList = MutableStateFlow<List<Identifiable<Note>>>(emptyList())
     val noteList: StateFlow<List<Identifiable<Note>>> = _noteList.asStateFlow()
     val noteRepo = NoteCRUD()
+    val tasks = mutableListOf<() -> Unit>()
 
     init {
         viewModelScope.launch {
@@ -26,6 +27,11 @@ class NoteViewModel: ViewModel() {
             val id = noteRepo.add(note)
             _noteList.value = listOf(Identifiable(id, note)) + _noteList.value
         }
+    }
+
+    fun exec(){
+        tasks.forEach{it()}
+        tasks.clear()
     }
 
     fun updateNote(note: Identifiable<Note>) {

@@ -18,14 +18,15 @@ fun NoteEditorScreen(
     noteId: Int
 ){
     val note = vm.noteList.collectAsState().value.find { e -> e.id == noteId }
-    if(note == null){
-        navigator("[back]")
-        return
-    }
+        ?: throw Exception("Not a note: $noteId")
     Menuable (
         navigator = navigator,
         actions = {
-            IconButton(onClick = { vm.deleteNote(noteId) }) {
+            IconButton(onClick = {
+                vm.tasks.add{ vm.deleteNote(noteId)
+                    println("it")}
+                navigator("[back]")
+            }) {
                 Icon(imageVector = Icons.Default.Delete, contentDescription = null)
             }
         }
