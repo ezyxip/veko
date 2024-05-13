@@ -16,10 +16,26 @@ class NoteViewModel: ViewModel() {
     val noteRepo = NoteCRUD()
     val tasks = mutableListOf<() -> Unit>()
 
+
+    class Wrapper<Type>(var value: Type)
+
     init {
         viewModelScope.launch {
             _noteList.value = noteRepo.all()
         }
+    }
+
+
+    fun registryNoteForEdit(note: Identifiable<Note>): MutableStateFlow<Identifiable<Note>> {
+        val wrapper = Wrapper(note)
+        val state = MutableStateFlow(note)
+        viewModelScope.launch {
+            state.collect{ wrapper.value = it}
+        }
+        tasks.add {
+            updateNote(wrapper.value)
+        }
+        return state
     }
 
     fun addNote(note: Note) {

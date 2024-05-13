@@ -7,9 +7,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
 class RouteHistory (private val count: Int) {
-    val history = mutableListOf<String>()
-    val onBackTasks = mutableMapOf<String, ()->Unit>()
-    val onCurrentTasks = mutableMapOf<String, ()->Unit>()
+    private val history = mutableListOf<String>()
+    private val onBackTasks = mutableMapOf<String, ()->Unit>()
+    private val onCurrentTasks = mutableMapOf<String, ()->Unit>()
 
     fun put(argBuilder: TaskBuilding.() -> Unit) {
         val args = TaskBuilding()

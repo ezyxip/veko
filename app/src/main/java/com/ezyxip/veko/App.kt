@@ -18,6 +18,7 @@ import com.ezyxip.veko.screens.NoteViewModel
 @Composable
 fun App(){
     configureApp()
+
     val navigator = rememberNavController()
     val vm: NoteViewModel = viewModel()
     val graph = getGraph(navigator, vm)
@@ -43,6 +44,7 @@ fun getGraph(
 
     val nav =  { path: String ->
         if (path == "[back]") {
+            println("!!!")
             navigator.popBackStack()
             Unit
         } else {
@@ -50,16 +52,17 @@ fun getGraph(
         }
     }
 
-
-
     return navigator.createGraph("/main"){
         composable("/main"){ MainScreen(navigator = nav, vm = vm) }
+
         composable("/notes"){ NoteListScreen(navigator = nav, vm = vm) }
+
         composable("/note_edit/{noteId}", arguments = listOf(
             navArgument("noteId"){ this.type = NavType.IntType }
         )){
             val noteId = it.arguments?.getInt("noteId") ?: throw Exception("Note id not sent")
             NoteEditorScreen(navigator = nav, noteId = noteId, vm = vm)
         }
+
     }
 }
