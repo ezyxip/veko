@@ -44,7 +44,6 @@ fun getGraph(
 
     val nav =  { path: String ->
         if (path == "[back]") {
-            println("!!!")
             navigator.popBackStack()
             Unit
         } else {
