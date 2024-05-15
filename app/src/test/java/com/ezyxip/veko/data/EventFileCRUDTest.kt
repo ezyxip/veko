@@ -7,9 +7,10 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.io.File
+import java.util.Date
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class NoteCRUDTest{
+class EventFileCRUDTest{
     val storage = FileStorage("testdir")
     val idResolver: IdResolver = SimpleIdResolver("testdir")
 
@@ -20,13 +21,15 @@ class NoteCRUDTest{
 
     @Test
     fun createNote(){
-        val noteCRUD = NoteFileCRUD(storage, idResolver)
-        val note = Note("Theme", "Description")
+        val eventCRUD = EventFileCRUD(storage, idResolver)
+        val now = Date()
+        now.seconds = 0
+        val event = Event("Theme", "Description", now)
 
-        val int = noteCRUD.add(note)
+        val int = eventCRUD.add(event)
 
-        val resNote = noteCRUD.get(int)
+        val resEvent = eventCRUD.get(int)
 
-        assertEquals(note, resNote)
+        assertEquals(event, resEvent)
     }
 }

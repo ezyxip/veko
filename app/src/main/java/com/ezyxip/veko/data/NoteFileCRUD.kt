@@ -6,7 +6,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
 
-class NoteCRUD(
+class NoteFileCRUD(
     val storage: FileStorage = FileStorage(),
     val idResolver: IdResolver = IdResolver.bean
 ) : CRUDManager<Note, Int> {
@@ -46,7 +46,6 @@ class NoteCRUD(
         storage.getFile("$id.note").delete()
     }
 
-    @OptIn(ExperimentalSerializationApi::class)
     override fun all(where: (Identifiable<Note>) -> Boolean): List<Identifiable<Note>> {
         return storage.getFiles("notes")
             .map { e -> Identifiable(e.name.replace(".note", "").toInt(), e )}
