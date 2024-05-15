@@ -28,13 +28,12 @@ fun NoteListScreen(
     navigator: (String) -> Unit
 ){
     val noteList by vm.noteList.collectAsState(initial = emptyList())
-    var count = 0
     Menuable (
         title = "Заметки",
         navigator = navigator,
         actions = {
             IconButton(onClick = {
-                vm.addNote(Note("New note" + ++count, "description"))
+                vm.addNote(Note("New note", "description"))
             }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
